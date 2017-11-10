@@ -8,6 +8,7 @@ import sys
 from tensorflow.examples.tutorials.mnist import input_data
 
 import tensorflow as tf
+import time
 
 FLAGS = None
 
@@ -74,6 +75,7 @@ def main(_):
 
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())
+        start_time = time.time()
         for i in range(20000):
             batch = mnist.train.next_batch(50)
             if i % 100 == 0:
@@ -82,6 +84,7 @@ def main(_):
                 print('step %d, training accuracy %g' % (i, train_accuracy))
             train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
 
+        print("Training Time: --- %s seconds ---" % (time.time() - start_time))
         print('test accuracy %g' % accuracy.eval(feed_dict={
             x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0}))
 
