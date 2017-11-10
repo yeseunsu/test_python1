@@ -27,6 +27,7 @@ import sys
 from tensorflow.examples.tutorials.mnist import input_data
 
 import tensorflow as tf
+import time
 
 FLAGS = None
 
@@ -58,10 +59,13 @@ def main(_):
 
   sess = tf.InteractiveSession()
   tf.global_variables_initializer().run()
+
   # Train
+  start_time = time.time()
   for _ in range(1000):
     batch_xs, batch_ys = mnist.train.next_batch(100)
     sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
+  print("Training Time: --- %s seconds ---" % (time.time() - start_time))
 
   # Test trained model
   correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))

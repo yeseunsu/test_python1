@@ -14,6 +14,7 @@ from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 import numpy as np
 import os
+import time
 
 batch_size = 32
 num_classes = 10
@@ -69,6 +70,7 @@ x_test = x_test.astype('float32')
 x_train /= 255
 x_test /= 255
 
+start_time = time.time()
 if not data_augmentation:
     print('Not using data augmentation.')
     model.fit(x_train, y_train,
@@ -102,6 +104,7 @@ else:
                         epochs=epochs,
                         validation_data=(x_test, y_test),
                         workers=4)
+print("Training Time: --- %s seconds ---" % (time.time() - start_time))
 
 # Save model and weights
 if not os.path.isdir(save_dir):
