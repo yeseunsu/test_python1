@@ -62,7 +62,7 @@ def main(_):
 
   # Train
   start_time = time.time()
-  for _ in range(1000):
+  for _ in range(10000):
     batch_xs, batch_ys = mnist.train.next_batch(100)
     sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
   print("Training Time: --- %s seconds ---" % (time.time() - start_time))
