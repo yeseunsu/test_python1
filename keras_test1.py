@@ -33,6 +33,8 @@ y_train = keras.utils.to_categorical(np.random.randint(10, size=(1000, 1)), num_
 x_test = np.random.random((100, 50))
 y_test = keras.utils.to_categorical(np.random.randint(10, size=(100, 1)), num_classes=10)
 
+
+print (y_train)
 model = Sequential()
 # Dense(64) is a fully-connected layer with 64 hidden units.
 # in the first layer, you must specify the expected input data shape:
