@@ -8,7 +8,7 @@ from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import KFold
 from sklearn.preprocessing import LabelEncoder
 from sklearn.pipeline import Pipeline
-
+from keras.optimizers import SGD,Adam
 
 # fix random seed for reproducibility
 seed = 7
@@ -28,6 +28,17 @@ encoded_Y = encoder.transform(Y)
 # convert integers to dummy variables (i.e. one hot encoded)
 dummy_y = np_utils.to_categorical(encoded_Y)
 
+def model2():
+	model = Sequential()
+
+	model.add(Dense(10, input_shape=(4,), activation='tanh'))
+	model.add(Dense(8, activation='tanh'))
+	model.add(Dense(6, activation='tanh'))
+	model.add(Dense(3, activation='softmax'))
+
+	model.compile(Adam(lr=0.04), 'categorical_crossentropy', metrics=['accuracy'])
+	return model
+
 # define baseline model
 def baseline_model():
 	# create model
@@ -37,6 +48,9 @@ def baseline_model():
 	# Compile model
 	model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 	return model
+
+print(type(X))
+print(type(dummy_y))
 
 estimator = KerasClassifier(build_fn=baseline_model, epochs=200, batch_size=5, verbose=0)
 
